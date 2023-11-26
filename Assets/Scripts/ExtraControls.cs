@@ -18,5 +18,9 @@ public class ExtraControls : MonoBehaviour
         {
             SceneManager.LoadScene("MobileInputDemoScene");
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Application.Quit();
+        }
     }
 }
