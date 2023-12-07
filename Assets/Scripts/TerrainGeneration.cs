@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class TerrainGeneration : MonoBehaviour
 {
     public Transform rightEdge;
     private bool lastState = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,8 @@ public class TerrainGeneration : MonoBehaviour
             Instantiate(nextTerrain, rightEdge.transform.position, Quaternion.identity);
         }
 
-        lastState = rightEdge.position.x < lowerRightWorldPos.x;
+        // lastState will stay True after a new terrain is generated
+        lastState = rightEdge.position.x < lowerRightWorldPos.x || lastState;
 
         if (rightEdge.position.x < lowerLeftWorldPos.x)
         {
@@ -38,8 +41,13 @@ public class TerrainGeneration : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(rightEdge.transform.position, 3);
-        Gizmos.DrawWireSphere(transform.position, 3);
+    private void OnDrawGizmos()
+    {
+        Transform selectedTransform = Selection.activeTransform;
+        if (selectedTransform != null && (selectedTransform.IsChildOf(transform) || selectedTransform == transform))
+        {
+            Gizmos.DrawWireSphere(rightEdge.transform.position, 3);
+            Gizmos.DrawWireSphere(transform.position, 3);
+        }
     }
 }
