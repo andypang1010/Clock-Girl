@@ -39,7 +39,6 @@ public class ClockPlatform : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
             contactMaxCount--;
