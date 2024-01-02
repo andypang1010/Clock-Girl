@@ -7,6 +7,7 @@ public class ClockGenerator : MonoBehaviour
     public static ClockGenerator instance;
 
     public float maxSpacing;
+    public int minRotateSpeed, maxRotateSpeed;
     public GameObject clockPrefab;
 
     // Start is called before the first frame update
@@ -27,6 +28,11 @@ public class ClockGenerator : MonoBehaviour
 
             for (int j = 0; j < 10; j++)
             {
+                // Set rotation speed for each clock hand
+                foreach (Rotator rotator in clockPrefab.GetComponentsInChildren<Rotator>()) {
+                    rotator.setMovementSpeed(NewRandRotationSpeed());
+                }
+
                 Instantiate(clockPrefab, NewRandPosition(nextPos), Quaternion.identity);
                 nextPos.x += spacing;
             }
@@ -42,5 +48,9 @@ public class ClockGenerator : MonoBehaviour
 
     Vector2 NewRandPosition(Vector2 currPosition) {
         return currPosition + new Vector2(Random.Range(-maxSpacing, maxSpacing), Random.Range(-maxSpacing, maxSpacing));
+    }
+
+    int NewRandRotationSpeed() {
+        return Random.Range(minRotateSpeed, maxRotateSpeed);
     }
 }

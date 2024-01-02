@@ -22,4 +22,8 @@ public class Rotator : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position + offset, 1f);
     }
+
+    public void setMovementSpeed(int speed) {
+        m_MovementSpeed = speed;
+    }
 }
