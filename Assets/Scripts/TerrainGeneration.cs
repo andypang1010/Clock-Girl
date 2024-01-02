@@ -43,11 +43,13 @@ public class TerrainGeneration : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+#if (UNITY_EDITOR)
         Transform selectedTransform = Selection.activeTransform;
         if (selectedTransform != null && (selectedTransform.IsChildOf(transform) || selectedTransform == transform))
         {
             Gizmos.DrawWireSphere(rightEdge.transform.position, 3);
             Gizmos.DrawWireSphere(transform.position, 3);
         }
+#endif
     }
 }
